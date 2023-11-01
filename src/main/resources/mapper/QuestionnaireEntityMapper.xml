@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.QuestionnaireEntityMapper">
+
+    <!--创建问卷-->
+    <insert id="creatQuestionnaire" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        insert into questionnaire_info(projectId,type,questionnaireName,questionnaireDesc)
+        value (#{projectId,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER},#{questionnaireName,jdbcType=VARCHAR},
+        #{questionnaireDesc,jdbcType=VARCHAR} )
+    </insert>
+
+
+    <!--删除问卷-->
+    <delete id="deleteQuestionnaireById" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        delete from questionnaire_info
+        where questionnaireId = #{questionnaireId,jdbcType=INTEGER}
+    </delete>
+
+    <!--发布问卷-->
+    <update id="publishQuestionnaire" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        update questionnaire_info
+        set publishTime=#{publishTime,jdbcType=TIMESTAMP}
+        where questionnaireId = #{questionnaireId,jdbcType=INTEGER}
+    </update>
+
+
+    <!--展示问卷列表-->
+    <select id="queryQuestionnaireList" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        select *
+        from questionnaire_info
+        where projectId = #{projectId,jdbcType=VARCHAR}
+    </select>
+    
+    <!--预览问卷问题-->
+    <select id="previewQuestionnaireById" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        select *
+        from questionnaire_info
+        where questionnaireId = #{questionnaireId,jdbcType=INTEGER}
+    </select>
+
+    <!--根据姓名返回问卷id-->
+    <select id="returnQuestionnaireId" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        select questionnaireId
+        from questionnaire_info
+        where questionnaireName = #{questionnaireName,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

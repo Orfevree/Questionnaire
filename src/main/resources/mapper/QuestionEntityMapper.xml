@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.QuestionEntityMapper">
+
+<!--创建问题-->
+    <insert id="creatQuestion" parameterType="com.example.demo.dao.entity.QuestionEntity">
+        insert into question_info(questionnaireId,questionName,questionDesc,firstOption,secondOption,thirdOption,isTwo)
+        values (#{questionnaireId,jdbcType=INTEGER},#{questionName,jdbcType=VARCHAR},
+        #{questionDesc,jdbcType=TINYINT},
+        #{firstOption,jdbcType=VARCHAR},#{secondOption,jdbcType=VARCHAR},#{thirdOption,jdbcType=VARCHAR},#{isTwo,jdbcType=INTEGER})
+    </insert>
+
+    <!--预览问题-->
+    <select id="previewQuestionById" parameterType="com.example.demo.dao.entity.QuestionEntity" resultMap="myResultMap">
+        select *
+        from question_info
+        JOIN secondoption_info ON question_info.questionId = secondoption_info.questionId
+        where questionnaireId = #{questionnaireId,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="myResultMap" type="com.example.demo.dao.entity.previewQuestionEntity">
+        <id property="questionId" column="questionId"/>
+        <result property="questionnaireId" column="questionnaireId" />
+        <result property="questionName" column="questionName" />
+        <result property="firstOption" column="firstOption" />
+        <result property="secondOption" column="secondOption" />
+        <result property="thirdOption" column="thirdOption" />
+        <result property="isTwo" column="isTwo" />
+        <result property="secondOptionId" column="secondOptionId" />
+        <result property="relativeFirstOption" column="relativeFirstOption" />
+        <result property="relativeSecondOption" column="relativeSecondOption" />
+        <result property="relativeThirdOption" column="relativeThirdOption" />
+        <!-- 其他属性映射 -->
+    </resultMap>
+
+
+    <!--根据姓名返回问卷id-->
+    <select id="returnQuestionId" parameterType="com.example.demo.dao.entity.QuestionEntity">
+        select questionId
+        from question_info
+        where questionName = #{questionName,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

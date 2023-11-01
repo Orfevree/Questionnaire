@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>题库</title>
+		<link rel="stylesheet" href="./modules/modifyTitleModal/index.css">
+		<link rel="stylesheet" href="./index.css">
+		<link rel="stylesheet" href="../../static/bootstrap-3.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../static/iconfont/iconfont.css">
+		<script src="../../static/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+		<script src="../../static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="text">海量题目供你选择！</div>
+		</div>
+
+		<div class="container">
+			<fieldset>
+				<legend>
+					<input type="checkbox" id="question1" onclick="onOptionSelected('题目1')" />
+					<label for="question1">题目1</label>
+				</legend>
+				<div class="options">
+					<input type="checkbox" id="option1" onclick="onOptionSelected('选项1')" />
+					<label for="option1">选项1</label>
+					<br>
+					<input type="checkbox" id="option2" onclick="onOptionSelected('选项2')" />
+					<label for="option2">选项2</label>
+					<br>
+					<input type="checkbox" id="option3" onclick="onOptionSelected('选项3')" />
+					<label for="option3">选项3</label>
+					<br>
+					<input type="checkbox" id="option4" onclick="onOptionSelected('选项4')" />
+					<label for="option3">选项4</label>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					<input type="checkbox" id="question2" onclick="onOptionSelected('题目2')" />
+					<label for="question2">题目2</label>
+				</legend>
+				<div class="options">
+					<input type="checkbox" id="option5" onclick="onOptionSelected('选项A')" />
+					<label for="option4">选项A</label>
+					<br>
+					<input type="checkbox" id="option6" onclick="onOptionSelected('选项B')" />
+					<label for="option5">选项B</label>
+					<br>
+					<input type="checkbox" id="option7" onclick="onOptionSelected('选项C')" />
+					<label for="option6">选项C</label>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					<input type="checkbox" id="question3" onclick="onOptionSelected('题目3')" />
+					<label for="question3">题目3</label>
+				</legend>
+				<div class="options">
+					<input type="checkbox" id="option8" onclick="onOptionSelected('选项a')" />
+					<label for="option7">选项a</label>
+					<br>
+					<input type="checkbox" id="option9" onclick="onOptionSelected('选项b')" />
+					<label for="option8">选项b</label>
+					<br>
+					<input type="checkbox" id="option10" onclick="onOptionSelected('选项c')" />
+					<label for="option9">选项c</label>
+				</div>
+			</fieldset>
+
+
+			<div class="design-questionnaire">
+			    <label for="questionnaire-input">问题：</label>
+			    <input type="text" id="questionnaire-input" readonly>
+			  </div>
+
+			<div class="design-questionnaire">
+				<label for="option1">选项1：</label>
+				<input type="text" id="option1-input" readonly>
+			</div>
+
+			<div class="design-questionnaire">
+				<label for="option2">选项2：</label>
+				<input type="text" id="option2-input" readonly>
+			</div>
+
+			<div class="design-questionnaire">
+				<label for="option3">选项3：</label>
+				<input type="text" id="option3-input" readonly>
+			</div>
+
+			  <button onclick="returnValues()">完成</button>
+		</div>
+		<script type="module" src="../../utils/index.js"></script>
+		<script src="../common/header/index.js"></script>
+		<script src="./index.js"></script>
+		<script>
+			var counter = 1;
+			function onOptionSelected(optionValue) {
+				if (counter == 1) {
+					const questionnaireInput = document.getElementById('questionnaire-input');
+					questionnaireInput.value = optionValue;
+					counter++;
+				} else if (counter == 2) {
+					const option1 = document.getElementById('option1-input');
+					option1.value = optionValue;
+					counter++;
+				} else if (counter == 3) {
+					const option2 = document.getElementById('option2-input');
+					option2.value = optionValue;
+					counter++;
+				} else if (counter == 4) {
+					const option3 = document.getElementById('option3-input');
+					option3.value = optionValue;
+					counter++;
+				}
+			}
+
+			    function returnValues() {
+			      const questionnaireInput = document.getElementById('questionnaire-input');
+					const option1 = document.getElementById('option1-input');
+					const option2 = document.getElementById('option2-input');
+					const option3 = document.getElementById('option3-input');
+
+					const selectedOptions = questionnaireInput.value+option1.value+option2.value+option3.value;
+
+
+
+
+			      alert('选中的选项值为: ' + selectedOptions);
+			      // 这里可以将选中的选项值发送到后端或进行其他操作
+
+			      // 返回到已有的方框中设计问卷的框中（示例中使用控制台输出）
+			      console.log('设计问卷: ' + selectedOptions);
+				  location.href="/pages/designQuestionnaire/index.html?=selectedOptions="+selectedOptions
+
+					$util.setItem('questionnaireInput',questionnaireInput.value)
+					$util.setItem('option1',option1.value)
+					$util.setItem('option2',option2.value)
+					$util.setItem('option3',option3.value)
+
+			    }
+		</script>
+	</body>
+</html>

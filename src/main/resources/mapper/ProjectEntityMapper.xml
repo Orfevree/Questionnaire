@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.ProjectEntityMapper">
+
+    <!--查找所有用户-->
+    <select id="queryProjectList" parameterType="java.lang.String" resultType="com.example.demo.dao.entity.ProjectEntity">
+        select *
+        from project_info
+
+
+    </select>
+
+    <select id="selectProjectById" parameterType="com.example.demo.dao.entity.ProjectEntity" resultType="com.example.demo.dao.entity.ProjectEntity">
+        select *
+        from project_info
+        WHERE id=#{id,jdbcType=VARCHAR}
+
+    </select>
+
+    <select id="selectProjectByName" parameterType="com.example.demo.dao.entity.ProjectEntity" resultType="com.example.demo.dao.entity.ProjectEntity">
+        SELECT *
+        FROM project_info
+        WHERE projectName=#{projectName,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.dao.entity.ProjectEntity" >
+        insert into project_info
+        values (#{id,jdbcType=VARCHAR},#{userId,jdbcType=VARCHAR},#{projectName,jdbcType=VARCHAR},#{projectContent,jdbcType=VARCHAR},
+        #{createdBy,jdbcType=CHAR},
+        #{creationDate,jdbcType=TIMESTAMP},#{lastUpdatedBy,jdbcType=CHAR},
+        #{lastUpdateDate,jdbcType=TIMESTAMP})
+        
+    </insert>
+
+    <delete id="deleteProjectById" parameterType="com.example.demo.dao.entity.ProjectEntity">
+        delete from project_info
+        where id = #{id,jdbcType=VARCHAR}
+        
+    </delete>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.dao.entity.ProjectEntity">
+
+        update project_info
+        set
+        userId=#{userId,jdbcType=VARCHAR},
+        projectName=#{projectName,jdbcType=VARCHAR},
+        projectContent=#{projectContent,jdbcType=VARCHAR},
+        createdBy=#{createdBy,jdbcType=CHAR},
+        creationDate=#{creationDate,jdbcType=TIMESTAMP},
+        lastUpdatedBy=#{lastUpdatedBy,jdbcType=CHAR},
+        lastUpdateDate=#{lastUpdateDate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+
+    </update>
+</mapper>

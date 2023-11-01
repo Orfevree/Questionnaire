@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.SecondOptionEntityMapper">
+
+    <!--添加关联问题-->
+    <insert id="creatSecondOption" parameterType="com.example.demo.dao.entity.SecondOptionEntity">
+        insert into secondOption_info(questionId,relativeFirstOption,relativeSecondOption,relativeThirdOption,optionIndex)
+        values  (#{questionId,jdbcType=INTEGER},
+        #{relativeFirstOption,jdbcType=VARCHAR},#{relativeSecondOption,jdbcType=VARCHAR},
+        #{relativeThirdOption,jdbcType=VARCHAR},#{optionIndex,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <select id="querySecondOption" parameterType="com.example.demo.dao.entity.SecondOptionEntity">
+        select *
+        from secondOption_info
+        where questionId = #{questionId,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>
